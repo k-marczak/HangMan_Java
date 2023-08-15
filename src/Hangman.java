@@ -138,5 +138,80 @@ public class Hangman extends JFrame implements ActionListener     {
     @Override
     public void actionPerformed(ActionEvent e) {
 
+        String command = e.getActionCommand();
+        if(command.equals("Reset")){
+            resetGame();
+        }else if(command.equals("Quit")) {
+            dispose();
+            return;
+        }else {
+            // letter buttons
+
+
+
+            // disable button
+            JButton button = (JButton) e.getSource();
+            button.setEnabled(false);
+
+
+            // check if the word contains the users guess.
+            if(wordChallenge[1].contains(command)) {
+                button.setBackground(Color.green);
+
+
+
+                char[] hiddenWord = hiddenWordLabel.getText().toCharArray();
+
+                for(int i = 0; i < wordChallenge[1].length(); i ++) {
+                    if(wordChallenge[1].charAt(i) == command.charAt(0)) {
+                        hiddenWord[i] = command.charAt(0);
+                    }
+                }
+
+
+                //update hiddenWordlabel
+                hiddenWordLabel.setText(String.valueOf(hiddenWord));
+
+
+            }else {
+                button.setBackground(Color.RED);
+
+                ++incorrectGuesses;
+
+
+                CustomTools.updateImage(hangmanImage, incorrectGuesses + 1 + ".png");
+
+
+            }
+        }
     }
+
+
+    public void resetGame(){
+        // load new challenge
+        wordChallenge = wordDB.loadChallenge();
+        incorrectGuesses = 0;
+
+        //load starting image
+        CustomTools.updateImage(hangmanImage, CommonConstants.IMAGE_PATH);
+
+
+        // update category
+        categoryLabel.setText(wordChallenge[0]);
+
+
+        // update hiddenWord
+        String hiddenWOrd = CustomTools.hideWords(wordChallenge[1]);
+        hiddenWordLabel.setText(hiddenWOrd);
+
+
+        // enable all buttons again
+
+        for(int i  = 0; i < letterButtons.length; i++) {
+            letterButtons[i].setEnabled(true);
+            letterButtons[i].setBackground(CommonConstants.PRIMARY_COLOR);
+        }
+    }
+
+
 }
