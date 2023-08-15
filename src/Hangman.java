@@ -23,6 +23,7 @@ public class Hangman extends JFrame implements ActionListener     {
     private JDialog resultDialog;
     private JLabel resultLabel, wordLabel;
 
+    private Font customFont;
 
 
 
@@ -42,6 +43,7 @@ public class Hangman extends JFrame implements ActionListener     {
         wordDB = new WordDB();
         letterButtons = new JButton[26];
         wordChallenge = wordDB.loadChallenge();
+        customFont = CustomTools.createFont(CommonConstants.FONT_PATH);
         createResultDialog();
 
 
@@ -59,6 +61,7 @@ public class Hangman extends JFrame implements ActionListener     {
 
         // category display
         categoryLabel = new JLabel(wordChallenge[0]);
+        categoryLabel.setFont(customFont.deriveFont(30f));
         categoryLabel.setHorizontalAlignment(SwingConstants.CENTER);
 
         categoryLabel.setOpaque(true);
@@ -77,6 +80,7 @@ public class Hangman extends JFrame implements ActionListener     {
 
         //hidden word
         hiddenWordLabel = new JLabel(CustomTools.hideWords(wordChallenge[1]));
+        hiddenWordLabel.setFont(customFont.deriveFont(64f));
         hiddenWordLabel.setForeground(Color.white);
         hiddenWordLabel.setHorizontalAlignment(SwingConstants.CENTER);
 
@@ -103,6 +107,7 @@ public class Hangman extends JFrame implements ActionListener     {
         for(char c = 'A'; c <= 'Z'; c++) {
             JButton button = new JButton(Character.toString(c));
             button.setBackground(CommonConstants.PRIMARY_COLOR);
+            button.setFont(customFont.deriveFont(22f));
             button.setForeground(Color.white);
             button.addActionListener(this);
 
@@ -117,6 +122,7 @@ public class Hangman extends JFrame implements ActionListener     {
 
         // reset Button
         JButton resetButton = new JButton("Reset");
+        resetButton.setFont(customFont.deriveFont(22f));
         resetButton.setForeground(Color.WHITE);
         resetButton.setBackground(CommonConstants.SECONDARY_COLOR);
         resetButton.addActionListener(this);
@@ -128,6 +134,7 @@ public class Hangman extends JFrame implements ActionListener     {
         // Quit button
 
         JButton quitButton = new JButton("Quit");
+        quitButton.setFont(customFont.deriveFont(22f));
         quitButton.setForeground(Color.WHITE);
         quitButton.setBackground(CommonConstants.SECONDARY_COLOR);
         quitButton.addActionListener(this);

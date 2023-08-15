@@ -26,7 +26,9 @@ public class WordDB {
             if(filePath.contains("%20")) filePath = filePath.replaceAll("%20", " ");
             BufferedReader reader = new BufferedReader(new FileReader(filePath));
 
+
             String line;
+
             while((line = reader.readLine()) != null){
                 String[] parts = line.split(",");
 
